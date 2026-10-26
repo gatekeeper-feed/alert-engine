@@ -1,0 +1,30 @@
+{
+ "date": "2026-10-26",
+ "last_ask": "2026-10-26T14:26:18.426782+05:30",
+ "last_feed_err": null,
+ "idx": {
+  "NIFTY": {
+   "trades": 0,
+   "active": null,
+   "armed": {
+    "CE_PDH_cont": true,
+    "PE_PDL_cont": true
+   },
+   "flags": {},
+   "early_done": false,
+   "day_type": "inside"
+  },
+  "SENSEX": {
+   "trades": 0,
+   "active": null,
+   "armed": {
+    "CE_PDH_cont": true,
+    "PE_PDL_cont": true
+   },
+   "flags": {},
+   "early_done": false,
+   "day_type": "inside"
+  }
+ },
+ "history": []
+}
