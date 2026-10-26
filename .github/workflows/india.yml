@@ -1,0 +1,37 @@
+name: Gatekeeper India
+
+on:
+  schedule:
+    - cron: "*/5 3-10 * * 1-5"   # every 5 min, 08:30-16:30 IST, Mon-Fri
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: gatekeeper-india
+  cancel-in-progress: false
+
+jobs:
+  run:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+      - name: Run India engine
+        env:
+          TELEGRAM_TOKEN: ${{ secrets.TELEGRAM_TOKEN }}
+          TELEGRAM_CHAT: ${{ secrets.TELEGRAM_CHAT }}
+          EVENT: ${{ github.event_name }}
+        run: python india.py
+      - name: Save state
+        run: |
+          git config user.name "gatekeeper-bot"
+          git config user.email "bot@users.noreply.github.com"
+          git add india_state.json
+          git diff --cached --quiet && exit 0
+          git commit -m "india state"
+          for i in 1 2 3; do git pull --rebase --autostash origin main && git push && break; sleep 5; done
